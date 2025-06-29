@@ -17,19 +17,32 @@ def scrape(url):
         c = soup.find("div", id="showReading")
 
         if c:
-            text = c.get_text(strip=True)
+            text = clean_text(c.text)
             with open("output.txt", "w", encoding="utf-8") as f:
                 f.write(text)
+
+            clean_text("output.txt")
         else:
-            print("Error: Could not complete the request")
+            print("Error: Could not find the tag you inputted")
 
     except requests.exceptions.RequestException as e:
         print(f"Error: Failed to fetch page - {e}")
 
+def clean_text(text):
+    # Remove excessive whitespace and newlines
+    text = re.sub(r'\s+', ' ', text.strip())
+    # Replace censored words (e.g., "F * ck" -> "Fuck")
+    text = re.sub(r'F\s*\*\s*ck', 'Fuck', text)
+    # Remove or replace special characters that might disrupt TTS
+    text = re.sub(r'[^\w\s.,!?]', '', text)
+    # Normalize punctuation spacing (e.g., "Pain!So" -> "Pain! So")
+    text = re.sub(r'([!?.])(\w)', r'\1 \2', text)  # Capture word character in group 2
+    return text
 
 def main():
     # Get URL from user
     url = input("Enter the URL of the page: ")
     scrape(url)
+    clean_text("output.txt")
 
 main()
