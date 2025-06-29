@@ -1,0 +1,1 @@
+text = input("Enter the text you want generated into an audiofile: ")

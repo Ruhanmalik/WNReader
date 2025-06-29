@@ -1,18 +1,35 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-import time
+import requests
+from bs4 import BeautifulSoup
+import re
+# Use a more specific User-Agent
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+}
 
 
-URL = input("Enter the URL you want to scrape")
 
-service = Service(executable_path="/Users/ruhanmalik/Desktop/Workplace/Python/WebScraping/chromedriver")
-driver = webdriver.Chrome(service=service)
+def scrape(url):
+    try:
 
-driver.get(URL)
+        r = requests.get(url)
+        # Parse the HTML
+        soup = BeautifulSoup(r.text, 'html.parser')
+        c = soup.find("div", id="showReading")
 
-element = driver.find_element(By.CLASS_NAME, "chr-c")
+        if c:
+            text = c.get_text(strip=True)
+            with open("output.txt", "w", encoding="utf-8") as f:
+                f.write(text)
+        else:
+            print("Error: Could not complete the request")
 
-print(element.text)
+    except requests.exceptions.RequestException as e:
+        print(f"Error: Failed to fetch page - {e}")
 
-driver.quit()
+
+def main():
+    # Get URL from user
+    url = input("Enter the URL of the page: ")
+    scrape(url)
+
+main()
