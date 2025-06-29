@@ -2,3 +2,4 @@ venv/
 chromedriver
 .DS_Store
 test.html
+*.txt
