@@ -2,6 +2,6 @@ venv/
 chromedriver
 .DS_Store
 test.html
-*.txt
+output.txt
 grok.py
 piper.py
