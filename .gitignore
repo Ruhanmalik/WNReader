@@ -5,3 +5,4 @@ test.html
 output.txt
 grok.py
 piper.py
+*.wav
