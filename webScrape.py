@@ -65,7 +65,26 @@ def tts(text):
                 audio_segments.append(audio)
                 sf.write(f'chunk_{i}.wav', audio, 24000)
 
-            os.system('ffmpeg -f concat -safe 0 -i <(for f in chunk_*.wav; do echo "file \'$f\'"; done) -c copy output.wav')
+            # Combine all chunks into one file using FFmpeg
+            print("Combining audio chunks...")
+            
+            # Create a file list for FFmpeg
+            with open('filelist.txt', 'w') as f:
+                for i in range(len(audio_segments)):
+                    f.write(f"file 'chunk_{i}.wav'\n")
+            
+            # Use FFmpeg to concatenate all chunks
+            os.system('ffmpeg -f concat -safe 0 -i filelist.txt -c copy output_audio.wav')
+            
+            # Clean up temporary files
+            for i in range(len(audio_segments)):
+                if os.path.exists(f'chunk_{i}.wav'):
+                    os.remove(f'chunk_{i}.wav')
+            
+            if os.path.exists('filelist.txt'):
+                os.remove('filelist.txt')
+            
+            print("Audio successfully combined into output_audio.wav")
         
     except Exception as e:
         print(f"Error in TTS conversion: {e}")
