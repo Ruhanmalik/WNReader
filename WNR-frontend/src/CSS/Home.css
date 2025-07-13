@@ -1,0 +1,21 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+  padding: 20px;
+}
+
+.home-page h1 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 2.5rem;
+}
+
+.home-page p {
+  color: #666;
+  font-size: 1.2rem;
+  max-width: 600px;
+}

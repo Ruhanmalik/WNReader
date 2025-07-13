@@ -1,6 +1,9 @@
+import Input from '../components/Input.jsx'
+import '../CSS/URL.css'
+
 function URL() {
     return (
-        <div>
+        <div className="url-page">
             <h1>URL</h1>
             <Input />
         </div>

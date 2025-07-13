@@ -8,7 +8,7 @@ function Navbar() {
                 <Link to="/" className="nav-brand">
                 WebNovel Reader
                 </Link>
-                <Link to='/url' className='nav-link'>
+                <Link to='/URL' className='nav-link'>
                 Search
                 </Link>
             </div>

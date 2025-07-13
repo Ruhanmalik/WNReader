@@ -1,7 +1,9 @@
+import '../CSS/Input.css'
+
 function Input() {
     return (
-        <div>
-            <input type="text" placeholder="Enter URL" />
+        <div className="input-container">
+            <input type="text" placeholder="Enter URL" className="url-input" />
         </div>
     )
 }

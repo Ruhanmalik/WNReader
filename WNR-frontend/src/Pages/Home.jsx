@@ -1,7 +1,10 @@
+import '../CSS/Home.css'
+
 function Home() {
     return (
-        <div>
-            <h1>Home</h1>
+        <div className="home-page">
+            <h1>Welcome to WebNovel Reader</h1>
+            <p>Enter a URL to start reading your favorite web novels!</p>
         </div>
     )
 }
