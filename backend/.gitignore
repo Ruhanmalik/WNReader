@@ -6,3 +6,4 @@ output.txt
 grok.py
 piper.py
 *.wav
+.DS_Store
