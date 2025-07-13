@@ -14,9 +14,7 @@ def users():
                 'Fardeen',
                 'locking'
             ]
-    }
-)
-
+    })
 @app.route('/api/data', methods=['GET'])
 def get_data():
     return jsonify({'message': 'Hello from Flask!', 'data': [1, 2, 3, 4, 5]})

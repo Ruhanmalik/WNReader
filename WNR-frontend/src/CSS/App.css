@@ -1,0 +1,10 @@
+.main-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content > *:not(.navbar) {
+  flex: 1;
+  padding: 20px;
+}
