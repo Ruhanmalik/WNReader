@@ -8,8 +8,11 @@ function Input() {
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const handleSubmit = async () => {
-        setLoading(true)
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setMessage('');
+
         try {
             const response = await axios.post('http://127.0.0.1:5000/api/url', {url:url});
             setMessage(response.data.message)
