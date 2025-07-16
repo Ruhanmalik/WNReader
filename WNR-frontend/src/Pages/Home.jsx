@@ -4,7 +4,7 @@ function Home() {
     return (
         <div className="home-page">
             <h1>Welcome to WebNovel Reader</h1>
-            <p>Enter a URL to start reading your favorite web novels!</p>
+            <p>Enter a URL from Novelhi.com to turn your favorite web novel chapter into audiobooks!</p>
         </div>
     )
 }
