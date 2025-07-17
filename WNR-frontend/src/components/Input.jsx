@@ -42,6 +42,7 @@ function Input() {
             <button onClick={handleSubmit} disabled={loading}>
                 {loading ? 'Processing...' : 'Submit'}
             </button>
+            <br></br>
             {message && <p className="message">{message}</p>}
         </div>
     )
