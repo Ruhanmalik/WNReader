@@ -7,6 +7,38 @@ function Input() {
     const [url, setUrl] = useState('')
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
+    const [audioUrl, setAudioUrl] = useState('http://127.0.0.1:5000/api/audio')
+    const [audioExists, setAudioExists] = useState(false)
+    const [audioTimestamp, setAudioTimestamp] = useState(null)
+
+    // Poll for audio file status
+    useEffect(() => {
+        const checkAudioStatus = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/api/audio/status');
+                const { exists, timestamp } = response.data;
+                
+                if (exists !== audioExists || timestamp !== audioTimestamp) {
+                    setAudioExists(exists);
+                    setAudioTimestamp(timestamp);
+                    if (exists) {
+                        // Update audio URL with timestamp to force reload
+                        setAudioUrl(`http://127.0.0.1:5000/api/audio?t=${Date.now()}`);
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking audio status:', error);
+            }
+        };
+
+        // Check immediately
+        checkAudioStatus();
+
+        // Set up polling every 2 seconds
+        const interval = setInterval(checkAudioStatus, 2000);
+
+        return () => clearInterval(interval);
+    }, [audioExists, audioTimestamp]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,6 +76,8 @@ function Input() {
             </button>
             <br></br>
             {message && <p className="message">{message}</p>}
+            {!audioExists && <p>No audio file available</p>}
+            {audioExists && <audio src={audioUrl} controls></audio>}
         </div>
     )
 }
