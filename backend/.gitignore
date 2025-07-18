@@ -7,3 +7,5 @@ grok.py
 piper.py
 *.wav
 .DS_Store
+selenium.py
+webScraper.py
