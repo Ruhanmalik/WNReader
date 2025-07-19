@@ -62,22 +62,44 @@ function Input() {
             setLoading(false)
         }
     }
+
+    const getMessageClass = () => {
+        if (message.includes('Error') || message.includes('error')) {
+            return 'message error';
+        } else if (message.includes('success') || message.includes('Success')) {
+            return 'message success';
+        } else {
+            return 'message info';
+        }
+    }
+
     return (
         <div className="input-container">
-            <input 
-                type="text" 
-                placeholder="Enter URL" 
-                className="url-input"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-            />
-            <button onClick={handleSubmit} disabled={loading}>
-                {loading ? 'Processing...' : 'Submit'}
-            </button>
-            <br></br>
-            {message && <p className="message">{message}</p>}
-            {!audioExists && <p>No audio file available</p>}
-            {audioExists && <audio src={audioUrl} controls></audio>}
+            <form className="input-form" onSubmit={handleSubmit}>
+                <input 
+                    type="text" 
+                    placeholder="Enter Novelhi.com URL here..." 
+                    className="url-input"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    required
+                />
+                <button 
+                    type="submit" 
+                    className="submit-button" 
+                    disabled={loading}
+                >
+                    {loading && <span className="loading-spinner"></span>}
+                    {loading ? 'Processing...' : 'Convert to Audio'}
+                </button>
+            </form>
+            
+            {message && <p className={getMessageClass()}>{message}</p>}
+            
+            <div className="audio-container">
+                {!audioExists && <p className="no-audio">No audio file available</p>}
+                {audioExists && <audio src={audioUrl} controls className="audio-player"></audio>}
+            </div>
         </div>
     )
 }

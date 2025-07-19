@@ -6,8 +6,10 @@ import axios from 'axios'
 function URL() {
     return (
         <div className="url-page">
-            <h1>URL</h1>
-            <Input />
+            <h1>Convert Web Novel to Audio</h1>
+            <div className="url-content">
+                <Input />
+            </div>
         </div>
     )
 }
